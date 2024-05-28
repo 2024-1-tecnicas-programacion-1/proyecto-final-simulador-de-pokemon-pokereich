@@ -4,7 +4,6 @@ public enum TipoPokemon {
     NORMAL, FUEGO, AGUA, ELECTRICO, PLANTA, VENENO, PSIQUICO,
     ROCA, TIERRA, VOLADOR, HADA, LUCHA, ACERO, BICHO, HIELO, FANTASMA;
 
-    // Método para calcular la ventaja de tipo
     public double calcularVentaja(TipoPokemon otro) {
         switch (this) {
             case FUEGO:

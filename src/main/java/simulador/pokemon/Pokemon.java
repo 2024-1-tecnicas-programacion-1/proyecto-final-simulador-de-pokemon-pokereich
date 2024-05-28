@@ -10,7 +10,6 @@ public abstract class Pokemon implements Serializable {
     private String estado;
     
     public Pokemon(String nombre, int salud, int puntosDeAtaque, TipoPokemon tipo, String estado) {
-        super(nombre, salud, puntosDeAtaque, tipo, estado);
         this.nombre = nombre;
         this.salud = salud;
         this.puntosDeAtaque = puntosDeAtaque;
@@ -56,14 +55,21 @@ public abstract class Pokemon implements Serializable {
     public void setEstado(String estado) {
         this.estado = estado;
     }
-    // TODO: Aquí va tu código
     public void atacar(Pokemon oponente) {
-       
+       double multiplicador = this.tipo.calcularVentaja(oponente.getTipo());
+        int daño = (int) (this.puntosDeAtaque * multiplicador);
+        oponente.recibirDaño(daño);
+        System.out.println(this.nombre + " ataca a " + oponente.getNombre() + " causando " + daño + " de daño.");
     } 
     public void recibirDaño (int daño ) {
-       }
-    
+    this.salud -= daño;
+        if (this.salud < 0) this.salud = 0;
+        System.out.println(this.nombre + " recibe " + daño + " de daño. Salud restante: " + this.salud);
+    }
     public void entrenar() {
+         this.puntosDeAtaque += 10;
+        this.salud += 20;
+        System.out.println(this.nombre + " ha entrenado. Puntos de ataque: " + this.puntosDeAtaque + ", Salud: " + this.salud);
     
     }
 }
