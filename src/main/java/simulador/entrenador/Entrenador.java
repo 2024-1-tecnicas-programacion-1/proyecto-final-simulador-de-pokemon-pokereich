@@ -25,9 +25,15 @@ public class Entrenador {
     public void agregarPokemon(Pokemon pokemon) {
         pokemones.add(pokemon);
     }
-
-    public void entrenarPokemon(Pokemon pokemon) {
+    
+    public void entrenar() {
+        if (pokemones.isEmpty()) {
+        System.out.println("No hay Pokémon disponibles para entrenar en este momento.");
+        return;
+    }
+        for (Pokemon pokemon : pokemones) {
         pokemon.entrenar();
+         }
     }
 
     public void mostrarPokemones() {
@@ -51,17 +57,7 @@ public class Entrenador {
         return null;
     }
 
-    public void entrenar() {
-        if (pokemones.isEmpty()) {
-        System.out.println("No hay Pokémon disponibles para entrenar en este momento.");
-        return;
-    }
-        for (Pokemon pokemon : pokemones) {
-        pokemon.entrenar();
-    }
-    }
 }
-
 
 
 
