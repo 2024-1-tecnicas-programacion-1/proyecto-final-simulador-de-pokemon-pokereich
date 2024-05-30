@@ -1,12 +1,18 @@
+package simulador;
+
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+import simulador.batalla.Batalla;
 import simulador.entrenador.Entrenador;
 import simulador.pokemon.*;
+
 
 public class Principal {
     private static List<Entrenador> entrenadores = new ArrayList<>();
     private static Scanner scanner = new Scanner(System.in);
+    private static Batalla batalla = new Batalla();
 
     public static void main(String[] args) {
         while (true) {
@@ -101,7 +107,7 @@ public class Principal {
 
         Pokemon pokemonSeleccionado = pokemonesDisponibles.get(seleccion - 1);
         
-        // Agregar el Pokémon al equipo del entrenador seleccionado
+        
         if (entrenadores.isEmpty()) {
             System.out.println("No hay entrenadores registrados.");
             return;
@@ -127,7 +133,15 @@ public class Principal {
     }
 
     private static void iniciarBatalla() {
-        // Implementar la lógica para iniciar la batalla
+        if (entrenadores.size() < 2 || entrenadores.get(0).getPokemones().isEmpty() || entrenadores.get(1).getPokemones().isEmpty()) {
+            System.out.println("No hay suficientes entrenadores o Pokémon para iniciar la batalla.");
+            return;
+        }
+        
+        Pokemon pokemon1 = entrenadores.get(0).getPokemones().get(0);
+        Pokemon pokemon2 = entrenadores.get(1).getPokemones().get(0);
+        
+        batalla.iniciarBatalla(pokemon1, pokemon2);
     }
 
     private static void registrarEntrenador() {
@@ -183,10 +197,10 @@ public class Principal {
                     entrenadorSeleccionado.mostrarPokemones();
                     break;
                 case 2:
-                    gestionarPokemones(); // Llamar a la función de gestión de Pokémones para agregar más Pokémones
+                    gestionarPokemones(); 
                     break;
                 case 3:
-                    // Implementar lógica para entrenar Pokémon
+                   entrenadorSeleccionado.entrenar();
                     break;
                 case 4:
                     return;
@@ -195,5 +209,7 @@ public class Principal {
             }
         }
     }
+
+ 
 }
 

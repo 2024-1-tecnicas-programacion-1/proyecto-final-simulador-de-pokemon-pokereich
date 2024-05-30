@@ -50,6 +50,16 @@ public class Entrenador {
         System.out.println("No se encontró ningún Pokémon con ese nombre en el equipo de " + nombre);
         return null;
     }
+
+    public void entrenar() {
+        if (pokemones.isEmpty()) {
+        System.out.println("No hay Pokémon disponibles para entrenar en este momento.");
+        return;
+    }
+        for (Pokemon pokemon : pokemones) {
+        pokemon.entrenar();
+    }
+    }
 }
 
 
