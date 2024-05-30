@@ -1,9 +1,8 @@
-package simulador;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 import simulador.entrenador.Entrenador;
+import simulador.pokemon.*;
 
 public class Principal {
     private static List<Entrenador> entrenadores = new ArrayList<>();
@@ -73,7 +72,58 @@ public class Principal {
     }
 
     private static void gestionarPokemones() {
-        // Implementar la lógica para gestionar Pokémones
+        List<Pokemon> pokemonesDisponibles = new ArrayList<>();
+    
+        pokemonesDisponibles.add(new Cubone());
+        pokemonesDisponibles.add(new Doduo());
+        pokemonesDisponibles.add(new Ekans());
+        pokemonesDisponibles.add(new Electrode());
+        pokemonesDisponibles.add(new Goldeen());
+        pokemonesDisponibles.add(new Hitmonchan());
+        pokemonesDisponibles.add(new Lickitung());
+        pokemonesDisponibles.add(new Paras());
+        pokemonesDisponibles.add(new Ponyta());
+        pokemonesDisponibles.add(new Staryu());
+
+        System.out.println("Lista de Pokémones Disponibles:");
+        for (int i = 0; i < pokemonesDisponibles.size(); i++) {
+            System.out.println((i+1) + ". " + pokemonesDisponibles.get(i).getNombre());
+        }
+
+        System.out.print("Selecciona un Pokémon para agregar al equipo (número): ");
+        int seleccion = scanner.nextInt();
+        scanner.nextLine();
+
+        if (seleccion < 1 || seleccion > pokemonesDisponibles.size()) {
+            System.out.println("Selección inválida.");
+            return;
+        }
+
+        Pokemon pokemonSeleccionado = pokemonesDisponibles.get(seleccion - 1);
+        
+        // Agregar el Pokémon al equipo del entrenador seleccionado
+        if (entrenadores.isEmpty()) {
+            System.out.println("No hay entrenadores registrados.");
+            return;
+        }
+
+        System.out.println("Selecciona un entrenador para agregar el Pokémon:");
+        for (int i = 0; i < entrenadores.size(); i++) {
+            System.out.println((i+1) + ". " + entrenadores.get(i).getNombre());
+        }
+
+        System.out.print("Selecciona un entrenador (número): ");
+        int seleccionEntrenador = scanner.nextInt();
+        scanner.nextLine();
+
+        if (seleccionEntrenador < 1 || seleccionEntrenador > entrenadores.size()) {
+            System.out.println("Selección inválida.");
+            return;
+        }
+
+        Entrenador entrenadorSeleccionado = entrenadores.get(seleccionEntrenador - 1);
+        entrenadorSeleccionado.agregarPokemon(pokemonSeleccionado);
+        System.out.println("¡" + pokemonSeleccionado.getNombre() + " ha sido agregado al equipo de " + entrenadorSeleccionado.getNombre() + "!");
     }
 
     private static void iniciarBatalla() {
@@ -88,27 +138,35 @@ public class Principal {
     }
 
     private static void verListaEntrenadores() {
-        for (Entrenador entrenador : entrenadores) {
-            System.out.println(entrenador.getNombre());
+        if (entrenadores.isEmpty()) {
+            System.out.println("No hay entrenadores registrados.");
+            return;
+        }
+        System.out.println("Lista de Entrenadores:");
+        for (int i = 0; i < entrenadores.size(); i++) {
+            System.out.println((i+1) + ". " + entrenadores.get(i).getNombre());
         }
     }
 
     private static void seleccionarEntrenador() {
-        System.out.print("Ingrese el nombre del entrenador: ");
-        String nombre = scanner.nextLine();
-        Entrenador entrenadorSeleccionado = null;
-
-        for (Entrenador entrenador : entrenadores) {
-            if (entrenador.getNombre().equals(nombre)) {
-                entrenadorSeleccionado = entrenador;
-                break;
-            }
-        }
-
-        if (entrenadorSeleccionado == null) {
-            System.out.println("Entrenador no encontrado.");
+        if (entrenadores.isEmpty()) {
+            System.out.println("No hay entrenadores registrados.");
             return;
         }
+        System.out.println("Selecciona un entrenador:");
+        for (int i = 0; i < entrenadores.size(); i++) {
+            System.out.println((i+1) + ". " + entrenadores.get(i).getNombre());
+        }
+
+        System.out.print("Selecciona un entrenador (número): ");
+        int seleccion = scanner.nextInt();
+        scanner.nextLine();
+
+        if (seleccion < 1 || seleccion > entrenadores.size()) {
+            System.out.println("Selección inválida.");
+            return;
+        }
+        Entrenador entrenadorSeleccionado = entrenadores.get(seleccion - 1);
 
         while (true) {
             System.out.println("1. Ver equipo de Pokémones");
@@ -125,10 +183,10 @@ public class Principal {
                     entrenadorSeleccionado.mostrarPokemones();
                     break;
                 case 2:
-                    // Afregar pokemon  al equipo
+                    gestionarPokemones(); // Llamar a la función de gestión de Pokémones para agregar más Pokémones
                     break;
                 case 3:
-                    // Logica para entrenar
+                    // Implementar lógica para entrenar Pokémon
                     break;
                 case 4:
                     return;
@@ -138,3 +196,4 @@ public class Principal {
         }
     }
 }
+

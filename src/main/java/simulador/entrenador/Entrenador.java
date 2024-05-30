@@ -8,36 +8,50 @@ public class Entrenador {
     
     private String nombre;
     private List<Pokemon> pokemones;
+    
     public Entrenador(String nombre) {
         this.nombre = nombre;
         this.pokemones = new ArrayList<>();
     }
+    
     public String getNombre() {
         return nombre;
     }
+
     public List<Pokemon> getPokemones() {
         return pokemones;
     }
+
     public void agregarPokemon(Pokemon pokemon) {
         pokemones.add(pokemon);
     }
+
     public void entrenarPokemon(Pokemon pokemon) {
         pokemon.entrenar();
     }
+
     public void mostrarPokemones() {
-        for (Pokemon pokemon : pokemones) {
-            System.out.println(pokemon.getNombre());
+        if (pokemones.isEmpty()) {
+            System.out.println("El entrenador no tiene ningún Pokémon en su equipo.");
+        } else {
+            System.out.println("Equipo de Pokémones de " + nombre + ":");
+            for (Pokemon pokemon : pokemones) {
+                System.out.println(pokemon.getNombre());
+            }
         }
     }
+
     public Pokemon seleccionarPokemon(String nombre) {
         for (Pokemon pokemon : pokemones) {
             if (pokemon.getNombre().equals(nombre)) {
                 return pokemon;
             }
         }
+        System.out.println("No se encontró ningún Pokémon con ese nombre en el equipo de " + nombre);
         return null;
     }
 }
+
 
 
 

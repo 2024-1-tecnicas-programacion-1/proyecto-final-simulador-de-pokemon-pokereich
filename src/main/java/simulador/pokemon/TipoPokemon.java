@@ -2,7 +2,7 @@ package simulador.pokemon;
 
 public enum TipoPokemon {
     NORMAL, FUEGO, AGUA, ELECTRICO, PLANTA, VENENO, PSIQUICO,
-    ROCA, TIERRA, VOLADOR, HADA, LUCHA, ACERO, BICHO, HIELO, FANTASMA;
+    ROCA, TIERRA, VOLADOR, HADA, LUCHA, ACERO, BICHO, HIELO, FANTASMA, BICHO_PLANTA, NORMAL_VOLADOR;
 
     public double calcularVentaja(TipoPokemon otro) {
         switch (this) {
@@ -68,6 +68,14 @@ public enum TipoPokemon {
                 if (otro == VENENO) return 0.5;
                 if (otro == NORMAL) return 0;
                 break;   
+                case BICHO_PLANTA:
+                if (otro == AGUA || otro == PLANTA || otro == TIERRA) return 2.0;
+                if (otro == FUEGO || otro == VOLADOR) return 0.5;
+                break;
+                case NORMAL_VOLADOR:
+                if (otro == ELECTRICO || otro == ROCA) return 2.0;
+                if (otro == LUCHA || otro == TIERRA) return 0.5;
+                break;
             default:
                 return 1.0;
         }
